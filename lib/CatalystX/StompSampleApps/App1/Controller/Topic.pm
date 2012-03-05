@@ -1,6 +1,7 @@
 package CatalystX::StompSampleApps::App1::Controller::Topic;
 use Moose;
 use namespace::autoclean;
+use CatalystX::StompSampleApps::App1::Producer::Type2;
 
 BEGIN { extends 'Catalyst::Controller::JMS' }
 
@@ -11,10 +12,9 @@ sub type1 :MessageTarget {
 
     my $msg = $c->req->data;
     if ($msg->{state} eq '2') {
-        $c->model('MessageQueue')->send(
-            'queue/test-1',
-            { type => 'type2' },
-            { state => '3' },
+        $c->model('MessageQueue')->transform_and_send(
+            'CatalystX::StompSampleApps::App1::Producer::Type2',
+            3,
         );
     }
 
