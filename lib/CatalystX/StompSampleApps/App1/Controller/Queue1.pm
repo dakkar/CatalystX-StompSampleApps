@@ -11,10 +11,9 @@ sub something :MessageTarget('type2') {
 
     my $msg = $c->req->data;
     if ($msg->{state} eq '3') {
-        $c->model('MessageQueue')->send(
-            'queue/test-1',
-            { type => 'type3' },
-            { state => '4' },
+        $c->model('MessageQueue')->transform_and_send(
+            $c->component('Producer::Type3'),
+            4,
         );
     }
 
