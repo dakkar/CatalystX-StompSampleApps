@@ -7,6 +7,7 @@ use Catalyst::Runtime 5.80;
 use Catalyst qw/
     -Debug
     ConfigLoader
+    +CatalystX::ComponentsFromConfig::ModelPlugin
 /;
 
 extends 'Catalyst';

@@ -1,5 +1,6 @@
-package CatalystX::StompSampleApps::App1::Model::MessageQueue;
-use base 'Catalyst::Model::Adaptor';
+package CatalystX::StompSampleApps::App1::MessageQueueAdaptor;
+use Moose;
+extends 'CatalystX::ComponentsFromConfig::ModelAdaptor';
 use JSON::XS;
 
 my $json = JSON::XS->new->utf8;
