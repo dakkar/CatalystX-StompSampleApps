@@ -12,8 +12,6 @@ require CatalystX::StompSampleApps::App1;
 
 my $appclass = 'CatalystX::StompSampleApps::App1';
 
-my $servers = $appclass->model('MessageQueue')
-    ->servers;
 my $tracedir = $appclass->model('MessageQueue')->trace_basedir;
 
 $tracedir->mkpath;
@@ -26,7 +24,6 @@ my @subscriptions = map {; {
 } } grep { m{^(queue|topic)}x } @namespaces;
 
 my $handler = Plack::Handler::Stomp::NoNetwork->new({
-    servers => $servers,
     subscriptions => \@subscriptions,
     trace_basedir => $tracedir,
 });
