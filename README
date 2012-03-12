@@ -1,0 +1,21 @@
+CatalystX::StompSampleApps
+a test app with bells & whistles
+
+1) get the latest version of this package:
+http://github.com/dakkar/CatalystX-StompSampleApps
+
+2) install dependencies from http://github.com/dakkar/ :
+Net::Stomp::Producer
+Net::Stomp::MooseHelpers
+CatalystX::ComponentsFromConfig
+CatalystX::ConsumesJMS
+Catalyst::ActionRole::JMS
+Plack::Handler::Stomp
+
+3) Commands:
+deploy the database running app2_deploy.pl
+    a file will be created: /tmp/events.db
+run the app with app2.pl
+send event with test_app2_sendevent.pl
+tell the app to dump them with test_app2_dump.pl
+
