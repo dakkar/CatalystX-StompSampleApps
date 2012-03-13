@@ -3,9 +3,13 @@ use Moose;
 use Try::Tiny;
 extends 'CatalystX::StompSampleApps::App2::Base::Consumer';
 
+# a Consumer
+
 sub routes {
     return {
-        'events' => {
+        'events' => { # this is a destination name, see the
+                      # configuration for the value that's actually
+                      # used
             'event-msg' => {
                 code => \&consume_event,
                 validate => \&validate_event,
@@ -14,6 +18,7 @@ sub routes {
     };
 }
 
+# an event is valid if it's a hashref with a "event_text" element
 sub validate_event {
     my ($self,$headers,$body) = @_;
 
