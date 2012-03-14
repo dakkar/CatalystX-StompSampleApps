@@ -1,21 +1,36 @@
-CatalystX::StompSampleApps
-a test app with bells & whistles
+CatalystX::StompSampleApps - some sample STOMP consumer apps with
+bells & whistles
 
-1) get the latest version of this package:
-http://github.com/dakkar/CatalystX-StompSampleApps
+Commands for the first application:
 
-2) install dependencies from http://github.com/dakkar/ :
-Net::Stomp::Producer
-Net::Stomp::MooseHelpers
-CatalystX::ComponentsFromConfig
-CatalystX::ConsumesJMS
-Catalyst::ActionRole::JMS
-Plack::Handler::Stomp
+   * have a STOMP broker (activemq, for example) running on
+     localhost:61613, or edit the app1.conf file appropriately
+   * run script/app1.pl for the consumer
+   * run script/test_app1.pl for the producer
+   * the consumer log should process a few messages and then log "GOT IT"
 
-3) Commands:
-deploy the database running app2_deploy.pl
-    a file will be created: /tmp/events.db
-run the app with app2.pl
-send event with test_app2_sendevent.pl
-tell the app to dump them with test_app2_dump.pl
+   You can also run app1 without a broker, using the filesystem
+   instead. This is intended to facilitate automated integration
+   testing:
 
+   * run script/app1-nonetwork.pl for the consumer
+   * run script/test_app1-nonetwork.pl for the producer
+   * the consumer log should process a few messages and then log "GOT IT"
+
+   Look at app1-nonetwork.pl and app1-nonet.conf to see how it's done
+
+Commands for the second application:
+
+   * run script/app2_deploy.pl to create the database (a SQLite db on
+     /tmp/events.db, edit app2.conf to change this)
+   * have a STOMP broker (activemq, for example) running on
+     localhost:61613, or edit the app2.conf file appropriately
+   * run script/app2.pl for the consumer
+   * run script/test_app2_sendevent.pl, you can pass a string as the
+     only command line param, that will be sent as the value of the
+     message
+   * run script/test_app2_dump.pl, the consumer should log the text of
+     all the messages it received up to that point
+   * run "script/test_app2_dump.pl /queue/log" (or whatever
+     destination name you want) to have the consumer dump the texts
+     inside a single message to that destination
