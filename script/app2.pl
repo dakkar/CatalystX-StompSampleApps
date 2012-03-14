@@ -33,4 +33,10 @@ my $handler = Plack::Handler::Stomp->new({
 });
 
 # and have it run our application
-$handler->run($appclass->psgi_app);
+if ($appclass->can('psgi_app')) {
+    $handler->run($appclass->psgi_app);
+}
+else {
+    $appclass->setup_engine('PSGI');
+    $handler->run( sub { $appclass->run(@_) } );
+}

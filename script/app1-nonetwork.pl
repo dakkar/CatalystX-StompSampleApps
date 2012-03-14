@@ -28,4 +28,10 @@ my $handler = Plack::Handler::Stomp::NoNetwork->new({
     trace_basedir => $tracedir,
 });
 
-$handler->run($appclass->psgi_app);
+if ($appclass->can('psgi_app')) {
+    $handler->run($appclass->psgi_app);
+}
+else {
+    $appclass->setup_engine('PSGI');
+    $handler->run( sub { $appclass->run(@_) } );
+}
